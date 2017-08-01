@@ -19,6 +19,12 @@ app.controller('toDoController', function($scope, $http){
         });
     }
 
+    $scope.clearCompleted = function(){
+        $scope.todoList = $scope.todoList.filter(function(item){
+            return !item.done
+        });
+    }
+
     $scope.remove = function(id, idx){
         
         $http.delete('http://localhost:8000/todoapp/delete/'+id+'/')

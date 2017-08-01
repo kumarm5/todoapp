@@ -4,18 +4,27 @@
 <html>
     <head>
     	<meta charset="utf-8">
-    	<title>To Do List</title>
+        <title>To Do List</title>
+        <style>
+            .done{
+                text-decoration: line-through;
+                color: #ccc;
+            }
+        </style>
     </head>
     <body ng-app="toDo" ng-controller="toDoController" ng-init="todo_list()">
         
         <h1>To Do List</h1>
 
         <div ng-repeat="todo in todoList">
-            <input type="checkbox" ng-click="remove(todo.id, $index)">            
-            <span ng-bind="todo.todo_text"></span>
+            <!-- <input type="checkbox" ng-click="remove(todo.id, $index)"> -->
+            <input type="checkbox" ng-model="todo.done" />
+            <span ng-class="{'done':todo.done}" ng-bind="todo.todo_text"></span>
         </div>
 
-        <form ng-submit="todoAdd()">
+        <button ng-click="clearCompleted()">Clear Completed</button>
+        
+        <form name="frm" ng-submit="todoAdd()">
             <input type="text" ng-model="todoInput" placeholder="new task">
             <input type="submit" value="submit">
         </form>

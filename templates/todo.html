@@ -1,33 +1,55 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html>
     <head>
-    	<meta charset="utf-8">
+    	
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"/>
+        
         <title>To Do List</title>
-        <style>
-            .done{
-                text-decoration: line-through;
-                color: #ccc;
-            }
-        </style>
+        
+        <link href="https://fonts.googleapis.com/css?family=Saira+Condensed" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
     <body ng-app="toDo" ng-controller="toDoController" ng-init="todo_list()">
         
-        <h1>To Do List</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>To Do List</h1>                   
+                </div>
+                
+                <div class="col-md-12">
+                    <div ng-repeat="todo in todoList">
+                        <input type="checkbox" ng-model='done' ng-true-value="true" ng-false-value="false" 
+                        ng-change="update(todo.id, done)" />
+                        <span ng-class="{'done': done}" ng-bind="todo.todo_text"></span>
+                    </div>
+                    <hr>
+                </div>
 
-        <div ng-repeat="todo in todoList">
-            <!-- <input type="checkbox" ng-click="remove(todo.id, $index)"> -->
-            <input type="checkbox" ng-model="todo.done" />
-            <span ng-class="{'done':todo.done}" ng-bind="todo.todo_text"></span>
+                <div class="col-md-12">
+                    <form name="frm">
+                        <div class="col-md-6 col-sm-6 col-lg-6 col-xs-6">
+                            <input type="text" ng-model="todoInput" class="form-control" placeholder="new task">
+                        </div>
+                        <input type="submit" ng-click="todoAdd()" value="submit" class="btn btn-primary">
+                        <button class="btn btn-success" ng-click="clearCompleted()">Clear Completed</button>                                                                         
+                    </form>                    
+                </div>
+                
+            </div>
         </div>
-
-        <button ng-click="clearCompleted()">Clear Completed</button>
         
-        <form name="frm" ng-submit="todoAdd()">
-            <input type="text" ng-model="todoInput" placeholder="new task">
-            <input type="submit" value="submit">
-        </form>
+
+        <!-- <div ng-repeat="todo in todoList"> -->
+            <!-- <input type="checkbox" ng-click="remove(todo.id, $index)"> 
+            <span ng-bind="todo.todo_text"></span> -->
+            <!-- <input type="checkbox" ng-model="todo.done" />
+            <span ng-class="{'done':todo.done}" ng-bind="todo.todo_text"></span>  -->
+        <!-- </div> -->
 
         <script src="{% static 'js/angular.min.js' %}"></script>
         <script src="{% static 'js/todo.js' %}"></script>

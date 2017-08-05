@@ -1,0 +1,8 @@
+body{
+    font-family: 'Saira Condensed', sans-serif;
+}
+
+.done{
+    text-decoration: line-through;
+    color: #ccc;
+}

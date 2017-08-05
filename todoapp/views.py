@@ -16,6 +16,10 @@ class Todolist(ListAPIView):
     queryset = ToDoElements.objects.all()    
     serializer_class = TodoSerializer
 
+    def get_queryset(self):        
+        return ToDoElements.objects.filter(done=False)
+        
+
 class Todoadd(CreateAPIView):
     queryset = ToDoElements.objects.all()    
     serializer_class = TodoSerializer
